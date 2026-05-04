@@ -1,6 +1,6 @@
-# 📊 Predicting Burnout Risk in Remote Workers
+# Predicting Burnout Risk in Remote Workers
 
-## 📌 Overview
+## Overview
 The rise of remote and hybrid work has introduced new challenges related to employee well-being, including fatigue, social isolation, and burnout.  
 This project aims to analyze behavioral and work-related data to **predict burnout risk levels (Low, Medium, High)** using machine learning techniques.
 
@@ -8,7 +8,7 @@ We leverage both **supervised classification models** and **unsupervised cluster
 
 ---
 
-## 🎯 Objectives
+## Objectives
 - Predict employee burnout risk levels using behavioral data  
 - Compare performance across multiple classification models  
 - Identify key drivers of burnout  
@@ -16,7 +16,7 @@ We leverage both **supervised classification models** and **unsupervised cluster
 
 ---
 
-## 📂 Dataset
+## Dataset
 - Source: Work-from-home employee burnout dataset  
 - Observations: ~2,000 samples  
 - Features include:
@@ -33,9 +33,9 @@ We leverage both **supervised classification models** and **unsupervised cluster
 
 ---
 
-## ⚙️ Methodology
+## Methodology
 
-### 🔹 Data Preprocessing
+### Data Preprocessing
 - Removed irrelevant identifiers (e.g., user_id)  
 - One-hot encoded categorical variables  
 - Standardized numerical features  
@@ -44,7 +44,7 @@ We leverage both **supervised classification models** and **unsupervised cluster
 
 ---
 
-### 🔹 Supervised Learning (Classification)
+### Supervised Learning (Classification)
 
 We implemented three classification algorithms:
 
@@ -56,7 +56,7 @@ We implemented three classification algorithms:
 
 ---
 
-### 🔹 Unsupervised Learning (Clustering)
+### Unsupervised Learning (Clustering)
 
 - K-Means  
 - Agglomerative Clustering  
@@ -69,16 +69,16 @@ Used to:
 
 ---
 
-## 📊 Evaluation
+## Evaluation
 
-### 🔹 Classification Metrics
+### Classification Metrics
 - Accuracy  
 - Precision  
 - Recall  
 - F1-score (Macro & Weighted)  
 - Confusion Matrix  
 
-### 🔹 Clustering Metrics
+### Clustering Metrics
 - Silhouette Score  
 - Davies-Bouldin Index  
 - Calinski-Harabasz Score  
@@ -86,30 +86,30 @@ Used to:
 
 ---
 
-## 📈 Results
+## Results
 
-### 🔹 Classification
+### Classification
 - All models achieved **>95% accuracy**  
 - Random Forest performed best overall  
 - Logistic Regression provided a strong baseline  
 - SVM showed comparable performance  
 
-📌 Key Insight:  
+Key Insight:  
 - Most classification errors occur between **Medium and High risk**
 
 ---
 
-### 🔹 Clustering
+### Clustering
 - K-Means produced compact clusters  
 - BIRCH showed best separation (highest silhouette)  
 - Agglomerative clustering aligned best with actual labels (highest purity)  
 
-📌 Key Insight:  
+Key Insight:  
 - Different clustering methods optimize different aspects (compactness vs separation vs label alignment)
 
 ---
 
-## 🧠 Key Findings
+## Key Findings
 - Burnout is strongly associated with:
   - Fatigue  
   - Isolation  
@@ -121,14 +121,14 @@ Used to:
 
 ---
 
-## ⚠️ Limitations
+## Limitations
 - Class imbalance (few high-risk observations)  
 - Synthetic dataset may not fully reflect real-world variability  
 - Potential for feature leakage if not handled carefully  
 
 ---
 
-## 🚀 Future Work
+## Future Work
 - Apply to real-world datasets  
 - Incorporate time-series behavioral data  
 - Improve handling of minority classes  
@@ -136,14 +136,14 @@ Used to:
 
 ---
 
-## 📚 Related Work
+## Related Work
 - Psychological and HCI research linking burnout to behavioral patterns  
 - Industry approaches using PCA and clustering for profiling  
 - Kaggle study using Random Forest regression (≈57% accuracy after classification conversion)
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 - Python  
 - Pandas, NumPy  
 - Scikit-learn  
@@ -151,11 +151,11 @@ Used to:
 
 ---
 
-## 👥 Contributors
+## Contributors
 - Phoebe Huang  
-- [Add teammates here]
+- Isabel Ojeda
 
 ---
 
-## 📌 Conclusion
+## Conclusion
 This project demonstrates that machine learning can effectively predict burnout risk and uncover meaningful behavioral patterns. By combining classification and clustering approaches, we provide both **predictive accuracy and actionable insights** for improving employee well-being.
