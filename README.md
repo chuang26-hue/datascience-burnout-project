@@ -154,6 +154,8 @@ Key Insight:
 ## Contributors
 - Phoebe Huang  
 - Isabel Ojeda
+- Daniel Huss
+- Christian Dunne
 
 ---
 
