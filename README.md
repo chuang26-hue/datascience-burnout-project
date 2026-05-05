@@ -2,70 +2,97 @@
 
 ## Overview
 The rise of remote and hybrid work has introduced new challenges related to employee well-being, including fatigue, social isolation, and burnout.  
-This project aims to analyze behavioral and work-related data to **predict burnout risk levels (Low, Medium, High)** using machine learning techniques.
 
-We leverage both **supervised classification models** and **unsupervised clustering methods** to not only predict burnout but also uncover meaningful behavioral patterns.
+This project analyzes behavioral data from remote workers to:
+- Predict burnout risk  
+- Identify key drivers of burnout  
+- Uncover underlying behavioral patterns  
+
+We combine classification, regression, and clustering to provide both predictive performance and deeper insight into how burnout develops.
 
 ---
 
 ## Objectives
-- Predict employee burnout risk levels using behavioral data  
-- Compare performance across multiple classification models  
-- Identify key drivers of burnout  
-- Discover latent behavioral profiles using clustering  
+- Predict burnout risk using behavioral and well-being data  
+- Compare multiple machine learning classification models  
+- Identify the strongest drivers of burnout intensity  
+- Discover latent employee profiles using clustering  
+- Evaluate how well-being vs. work patterns explain burnout  
 
 ---
 
 ## Dataset
-- Source: Work-from-home employee burnout dataset  
-- Observations: ~2,000 samples  
-- Features include:
-  - Work hours  
-  - Screen time  
-  - Meetings count  
-  - Sleep hours  
-  - Task completion  
-  - Isolation index  
-  - Fatigue score  
+- Source: Kaggle (synthetic work-from-home dataset)  
+- Observations: ~2,000  
 
-- Target variable:
-  - `burnout_risk` (Low, Medium, High)
+### Features
+- Work hours  
+- Screen time  
+- Meetings count  
+- Sleep hours  
+- Task completion  
+- Isolation index  
+- Fatigue score  
+- App switching behavior  
+- Day type (weekday/weekend)  
+
+### Target Variable
+- Original: `burnout_risk` (Low, Medium, High)  
+- Transformed into binary classification:
+  - `Low` → 0  
+  - `Medium`, `High` → 1 (At Risk)  
+
+This transformation helps address class imbalance and improves model stability.
 
 ---
 
 ## Methodology
 
 ### Data Preprocessing
-- Removed irrelevant identifiers (e.g., user_id)  
+- Removed irrelevant columns (e.g., `user_id`)  
 - One-hot encoded categorical variables  
-- Standardized numerical features  
+- Standardized numerical features (for Logistic Regression & SVM)  
 - Train-test split (80/20)  
-- Addressed class imbalance using class weighting  
+- Addressed class imbalance using class weights  
+- Removed leakage features (`burnout_score`, `fatigue_score`)  
 
 ---
 
-### Supervised Learning (Classification)
+## Modeling
 
-We implemented three classification algorithms:
+### Classification (Primary Task)
 
 | Model                | Description |
 |---------------------|------------|
-| Logistic Regression | Linear baseline model |
-| Random Forest       | Ensemble model capturing nonlinear patterns |
-| Support Vector Machine (SVM) | Nonlinear classifier using RBF kernel |
+| Logistic Regression | Baseline linear model with class weighting |
+| Random Forest       | Ensemble model capturing nonlinear relationships |
+| SVM (RBF Kernel)    | Nonlinear classifier using kernel trick |
 
 ---
 
-### Unsupervised Learning (Clustering)
+### Regression (Estimation)
+Used to understand burnout intensity:
 
+- OLS Regression:
+  - Work-pattern variables → ~50% variance explained  
+  - Well-being variables → ~98% variance explained  
+
+- Machine Learning:
+  - Linear Regression (baseline)  
+  - Random Forest Regressor (better performance)
+
+---
+
+### Clustering (Behavioral Profiling)
+
+Models:
 - K-Means  
 - Agglomerative Clustering  
 - BIRCH  
 
-Used to:
-- Identify behavioral groupings  
-- Generate employee profiles  
-- Complement predictive modeling  
+Purpose:
+- Identify employee behavioral profiles  
+- Understand burnout as a spectrum  
 
 ---
 
@@ -75,8 +102,10 @@ Used to:
 - Accuracy  
 - Precision  
 - Recall  
-- F1-score (Macro & Weighted)  
-- Confusion Matrix  
+- F1-score (macro emphasized)  
+
+### Baseline
+- Majority class classifier ≈ 51% accuracy  
 
 ### Clustering Metrics
 - Silhouette Score  
@@ -89,23 +118,30 @@ Used to:
 ## Results
 
 ### Classification
-- All models achieved **>95% accuracy**  
-- Random Forest performed best overall  
-- Logistic Regression provided a strong baseline  
-- SVM showed comparable performance  
+- Logistic Regression: ~95% accuracy  
+- Random Forest: ~94% accuracy  
+- SVM: ~96% accuracy (best)  
 
-Key Insight:  
-- Most classification errors occur between **Medium and High risk**
+Key Insight:
+- High performance only after removing leakage variables  
+
+---
+
+### Regression
+- Well-being variables explain significantly more burnout variation than work patterns  
+- Burnout is driven more by recovery and psychological factors than workload alone  
 
 ---
 
 ### Clustering
-- K-Means produced compact clusters  
-- BIRCH showed best separation (highest silhouette)  
-- Agglomerative clustering aligned best with actual labels (highest purity)  
+- Three behavioral groups consistently emerge:
+  - Low burnout  
+  - Moderate burnout  
+  - High strain  
 
-Key Insight:  
-- Different clustering methods optimize different aspects (compactness vs separation vs label alignment)
+However:
+- Low silhouette scores indicate overlapping groups  
+- Burnout behaves as a continuous spectrum  
 
 ---
 
@@ -113,33 +149,36 @@ Key Insight:
 - Burnout is strongly associated with:
   - Fatigue  
   - Isolation  
-  - Work hours  
   - Sleep patterns  
-- Behavioral data is highly predictive of burnout risk  
-- Nonlinear models provide slight improvements over linear models  
-- Clustering reveals distinct employee profiles for targeted intervention  
+  - Work intensity  
+
+- Behavioral data is highly predictive  
+- Nonlinear models provide slight improvements  
+- Well-being factors are more important than workload alone  
 
 ---
 
 ## Limitations
-- Class imbalance (few high-risk observations)  
-- Synthetic dataset may not fully reflect real-world variability  
-- Potential for feature leakage if not handled carefully  
+- Synthetic dataset may exaggerate relationships and inflate performance  
+- Class imbalance in original labels  
+- Risk of feature leakage if not handled carefully  
+- Real-world data would likely be noisier  
 
 ---
 
 ## Future Work
-- Apply to real-world datasets  
+- Validate on real-world datasets  
 - Incorporate time-series behavioral data  
-- Improve handling of minority classes  
-- Deploy as a real-time burnout monitoring tool  
+- Improve modeling of high-risk cases  
+- Build real-time burnout monitoring systems  
+- Add features like team dynamics and managerial support  
 
 ---
 
-## Related Work
-- Psychological and HCI research linking burnout to behavioral patterns  
-- Industry approaches using PCA and clustering for profiling  
-- Kaggle study using Random Forest regression (≈57% accuracy after classification conversion)
+## Ethical Considerations
+- Models should support—not penalize—employees  
+- Ensure transparency and fairness  
+- Use predictions for intervention, not surveillance  
 
 ---
 
@@ -147,17 +186,23 @@ Key Insight:
 - Python  
 - Pandas, NumPy  
 - Scikit-learn  
+- Statsmodels  
 - Matplotlib, Seaborn  
 
 ---
 
 ## Contributors
 - Phoebe Huang  
-- Isabel Ojeda
-- Daniel Huss
-- Christian Dunne
+- Isabel Ojeda  
+- Daniel Huss  
+- Christian Dunne  
+
+---
+
+## Repository
+https://github.com/chuang26-hue/datascience-burnout-project  
 
 ---
 
 ## Conclusion
-This project demonstrates that machine learning can effectively predict burnout risk and uncover meaningful behavioral patterns. By combining classification and clustering approaches, we provide both **predictive accuracy and actionable insights** for improving employee well-being.
+This project demonstrates that burnout can be effectively predicted and analyzed using behavioral data. By combining classification, regression, and clustering, we provide both predictive accuracy and actionable insights for improving employee well-being.
