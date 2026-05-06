@@ -22,8 +22,8 @@ We combine classification, regression, and clustering to provide both predictive
 ---
 
 ## Dataset
-- Source: Kaggle (synthetic work-from-home dataset)  
-- Observations: ~2,000  
+- Source: [Kaggle (synthetic work-from-home dataset)](https://www.kaggle.com/code/sonalshinde123/work-from-home-burnout-analysis)  
+- Observations: ~2,000   
 
 ### Features
 - Work hours  
